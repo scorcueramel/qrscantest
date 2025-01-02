@@ -1,5 +1,10 @@
 let html5QrCode = null;
 
+const date = new Date();
+let year = new Intl.DateTimeFormat('es', { year: 'numeric' }).format(date);
+let month = new Intl.DateTimeFormat('es', { month: 'short' }).format(date);
+let day = new Intl.DateTimeFormat('es', { day: '2-digit' }).format(date);
+
 function lecturaCorrecta(codigoTexto, codigoObjeto) {
   // handle the scanned code as you like, for example:
   console.log(`Code matched = ${codigoTexto}`, codigoObjeto);
@@ -104,8 +109,8 @@ const $btnExportar = document.querySelector("#btnExportar"),
 $btnExportar.addEventListener("click", function () {
   let tableExport = new TableExport($tabla, {
     exportButtons: false, // No queremos botones
-    filename: "Reporte de prueba", //Nombre del archivo de Excel
-    sheetname: "Reporte de prueba", //Título de la hoja
+    filename: `Reporte con fecha ${day}-${month}-${year}`, //Nombre del archivo de Excel
+    sheetname: `Reporte ${day}-${month}-${year}`, //Título de la hoja
   });
   let datos = tableExport.getExportData();
   let preferenciasDocumento = datos.tabla.xlsx;
