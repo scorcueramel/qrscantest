@@ -9,7 +9,7 @@ function lecturaCorrecta(codigoTexto, codigoObjeto) {
   // handle the scanned code as you like, for example:
   console.log(`Code matched = ${codigoTexto}`, codigoObjeto);
   // Swal.fire(codigoTexto);
-  activarSonido();
+  // activarSonido();
   document.getElementById("codigo").value = codigoTexto;
 }
 
