@@ -27,7 +27,8 @@ $("#btn-guardar").on('click', function () {
       text: "Rellena los campos para guardar",
     });
   } else {
-  $("#table-body").append(`
+    $("#btnExportar").removeAttr('disabled');
+    $("#table-body").append(`
       <tr>
         <td>${$('#codigo').val()}</td>
         <td>${$('#cantidad').val()}</td>
@@ -46,7 +47,9 @@ function eliminar(Id) {
   let row = Id.parentNode.parentNode;
   let table = document.getElementById("tabla");
   table.deleteRow(row.rowIndex);
-
+  if ((table.rows.length - 1) == 0) {
+    $("#btnExportar").attr('disabled', 'disabled');
+  }
 }
 
 // This method will trigger user permissions
@@ -133,6 +136,7 @@ $btnExportar.addEventListener("click", function () {
     exportButtons: false, // No queremos botones
     filename: `Reporte con fecha ${day}-${month}-${year}`, //Nombre del archivo de Excel
     sheetname: `Reporte ${day}-${month}-${year}`, //Título de la hoja
+    ignoreCols: 3
   });
   let datos = tableExport.getExportData();
   let preferenciasDocumento = datos.tabla.xlsx;
