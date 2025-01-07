@@ -1,5 +1,10 @@
 let html5QrCode = null;
 
+const date = new Date();
+let year = new Intl.DateTimeFormat('es', { year: 'numeric' }).format(date);
+let month = new Intl.DateTimeFormat('es', { month: 'short' }).format(date);
+let day = new Intl.DateTimeFormat('es', { day: '2-digit' }).format(date);
+
 function lecturaCorrecta(codigoTexto, codigoObjeto) {
   // handle the scanned code as you like, for example:
   console.log(`Code matched = ${codigoTexto}`, codigoObjeto);
@@ -44,7 +49,7 @@ Html5Qrcode.getCameras().then(camaras => {
   }
 }).catch(err => {
   // handle err
-  Swal.fire(err);
+  // Swal.fire(err);
 });
 
 const camaraSeleccionada = (elemento) => {
@@ -103,4 +108,18 @@ fileinput.addEventListener('change', e => {
       // failure, handle it.
       console.log(`Error scanning file. Reason: ${err}`)
     });
+});
+
+const $btnExportar = document.querySelector("#btnExportar"),
+  $tabla = document.querySelector("#tabla");
+
+$btnExportar.addEventListener("click", function () {
+  let tableExport = new TableExport($tabla, {
+    exportButtons: false, // No queremos botones
+    filename: `Reporte con fecha ${day}-${month}-${year}`, //Nombre del archivo de Excel
+    sheetname: `Reporte ${day}-${month}-${year}`, //Título de la hoja
+  });
+  let datos = tableExport.getExportData();
+  let preferenciasDocumento = datos.tabla.xlsx;
+  tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
 });
