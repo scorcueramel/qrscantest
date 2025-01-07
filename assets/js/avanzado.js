@@ -4,6 +4,7 @@ function lecturaCorrecta(codigoTexto, codigoObjeto) {
   // handle the scanned code as you like, for example:
   console.log(`Code matched = ${codigoTexto}`, codigoObjeto);
   // Swal.fire(codigoTexto);
+  activarSonido();
   document.getElementById("codigo").value = codigoTexto;
 }
 
@@ -22,9 +23,9 @@ $("#btn-guardar").on('click', function () {
       </tr>
     `);
 
-    $('#codigo').val('');
-    $('#cantidad').val('');
-    $('#vencimiento').val('');
+  $('#codigo').val('');
+  $('#cantidad').val('');
+  $('#vencimiento').val('');
 });
 
 // This method will trigger user permissions
@@ -76,6 +77,12 @@ const detenerCamara = () => {
   });
 
 }
+
+const activarSonido = () => {
+  var audio = document.getElementById('audioScaner');
+  audio.play();
+}
+
 
 /* para imagenes */
 
