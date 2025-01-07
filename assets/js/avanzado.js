@@ -20,18 +20,34 @@ function errorLectura(error) {
 }
 
 $("#btn-guardar").on('click', function () {
+  if ($('#codigo').val() == '' || $('#cantidad').val() == '') {
+    Swal.fire({
+      icon: "warning",
+      title: "Oops...",
+      text: "Rellena los campos para guardar",
+    });
+  } else {
   $("#table-body").append(`
       <tr>
         <td>${$('#codigo').val()}</td>
         <td>${$('#cantidad').val()}</td>
         <td>${$('#vencimiento').val()}</td>
+        <td><button type="button" class="btn btn-sm btn-danger" onclick="eliminar(this)">X</button></td>
       </tr>
-    `);
-
+      `);
+  }
   $('#codigo').val('');
   $('#cantidad').val('');
   $('#vencimiento').val('');
 });
+
+function eliminar(Id) {
+
+  let row = Id.parentNode.parentNode;
+  let table = document.getElementById("tabla");
+  table.deleteRow(row.rowIndex);
+
+}
 
 // This method will trigger user permissions
 Html5Qrcode.getCameras().then(camaras => {
@@ -87,7 +103,6 @@ const activarSonido = () => {
   var audio = document.getElementById('audioScaner');
   audio.play();
 }
-
 
 /* para imagenes */
 
